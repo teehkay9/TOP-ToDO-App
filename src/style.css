@@ -1,52 +1,115 @@
-* {
+/* Basic reset for consistent appearance */
+body {
   margin: 0;
   padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  line-height: 1.4em;
+  color: #4d4d4d;
+}
+
+/* Main container for the todo app */
+.todoapp {
+  background: #fff;
+  margin: 40px auto;
+  width: 90%;
+  max-width: 550px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 25px 50px rgba(0, 0, 0, 0.1);
+}
+
+/* Header styling */
+.header {
+  padding: 20px;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 100px;
+  font-weight: 100;
+  color: rgba(175, 47, 47, 0.15);
+  margin: 0;
+}
+
+/* Task input styling */
+.new-todo {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  background: rgba(0, 0, 0, 0.03);
   box-sizing: border-box;
-  background: rgb(0, 100, 0 / 0.05) !important;
+  font-size: 24px;
+  outline: none;
 }
 
-.container {
-  width: 40%;
-  margin: 36px auto;
+/* Main section styling */
+.main {
+  display: block;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Individual task item */
+.todo-list li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+  padding: 10px;
+}
+
+.todo-list li:last-child {
+  border-bottom: none;
+}
+
+/* Footer styling */
+.footer {
+  padding: 10px 15px;
+  height: 40px;
+  border-top: 1px solid #e6e6e6;
+  display: flex; /* Use Flexbox */
+  justify-content: space-between; /* Space out child elements */
+  align-items: center; /* Center align vertically */
+  background-color: #f9f9f9;
+}
+
+.footer .todo-count {
+  text-align: left;
+}
+
+/* Filters styled as flex items */
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
-ol {
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.filters li {
+  margin: 0;
 }
 
-li {
-  display: flex;
-  justify-content: space-between;
+.filters a {
+  color: inherit;
+  text-decoration: none;
+  padding: 3px 7px;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.filters a.selected {
+  border-color: rgba(175, 47, 47, 0.2);
 }
 
-.content-head {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+/* Clear completed button */
+.clear-completed {
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
 }
 
-.content-bottom {
-  display: flex;
-}
-
-.content-bottom > * {
-  color: rgb(128, 121, 121);
-}
-
-h1 {
-  font-size: 48px;
-  color: lightcoral;
+.clear-completed:hover {
+  text-decoration: underline;
 }
