@@ -1,7 +1,12 @@
 import "./style.css";
 import { TaskManager } from "./task_manager"; // Import TaskManager
+import { UI } from "./UI";
 
-// Expose TaskManager to the global MyApp object for testing/debugging
+document.addEventListener("DOMContentLoaded", () => {
+  new UI(); // Initialize the UI
+});
+
+/* // Expose TaskManager to the global MyApp object for testing/debugging
 window.MyApp = {
   TaskManager,
 };
@@ -15,3 +20,4 @@ const taskManager = new MyApp.TaskManager();
 taskManager.addTask("Learn SWE");
 
 console.log(taskManager.getAllTasks()); // Check if the task was added correctly
+ */
