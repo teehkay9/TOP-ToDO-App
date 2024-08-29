@@ -1,4 +1,3 @@
-// webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -9,6 +8,8 @@ module.exports = {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    library: "MyApp", // Expose your library under the MyApp namespace
+    libraryTarget: "window", // Attach the library to the window object
   },
   devtool: "eval-source-map",
   devServer: {
