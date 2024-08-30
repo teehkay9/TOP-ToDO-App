@@ -26,8 +26,18 @@ export class UI {
   }
 
   renderTask(task) {
+    // Task Description
     const taskItem = document.createElement("li");
+    taskItem.setAttribute("id", `${task.id}`);
+    taskItem.classList.add("task");
     taskItem.textContent = task.description;
+
+    // Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "X";
+
     this.taskList.appendChild(taskItem);
+    taskItem.appendChild(deleteButton);
   }
 }

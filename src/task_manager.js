@@ -13,6 +13,17 @@ export class TaskManager {
     return newTask;
   }
 
+  findTaskById(id) {
+    return this.tasks.find((task) => task.id === id);
+  }
+
+  deleteTask(id) {
+    // get the index of element with given id to delete it
+    const taskIndex = this.tasks.findIndex((task) => task.id === id);
+
+    this.tasks.splice(taskIndex, 1);
+  }
+
   getAllTasks() {
     return this.tasks;
   }

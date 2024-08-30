@@ -72,6 +72,15 @@ form {
   font-size: 24px;
   border-bottom: 1px solid #ededed;
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-button {
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .todo-list li:last-child {
