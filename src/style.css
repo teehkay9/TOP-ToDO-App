@@ -32,7 +32,7 @@ body {
 
 /* Task input styling */
 .new-todo {
-  width: 100%;
+  width: 80%;
   padding: 16px;
   border: none;
   background: rgba(0, 0, 0, 0.03);
@@ -44,6 +44,20 @@ body {
 /* Main section styling */
 .main {
   display: block;
+}
+
+form {
+  display: flex;
+}
+
+.task-submit-btn {
+  border-radius: 8px;
+  padding: 16px;
+  border: none;
+  background: rgba(175, 47, 47, 0.8);
+  color: #fff;
+  cursor: pointer;
+  width: 20%;
 }
 
 .todo-list {
@@ -69,9 +83,9 @@ body {
   padding: 10px 15px;
   height: 40px;
   border-top: 1px solid #e6e6e6;
-  display: flex; /* Use Flexbox */
-  justify-content: space-between; /* Space out child elements */
-  align-items: center; /* Center align vertically */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #f9f9f9;
 }
 
