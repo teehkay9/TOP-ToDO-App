@@ -3,7 +3,7 @@ import { Task } from "./task";
 export class TaskManager {
   constructor() {
     this.tasks = []; // stores our Task objects
-    this.currentId = 1; // ID generator for each Task object
+    this.currentId = 0; // ID generator for each Task object
   }
 
   addTask(description) {
@@ -21,7 +21,9 @@ export class TaskManager {
     // get the index of element with given id to delete it
     const taskIndex = this.tasks.findIndex((task) => task.id === id);
 
-    this.tasks.splice(taskIndex, 1);
+    if (taskIndex !== -1) {
+      this.tasks.splice(taskIndex, 1);
+    }
   }
 
   getAllTasks() {

@@ -37,6 +37,16 @@ export class UI {
     deleteButton.classList.add("delete-button");
     deleteButton.textContent = "X";
 
+    // add event listener for each delete button
+    deleteButton.addEventListener("click", (e) => {
+      const taskItem = e.target.parentElement;
+
+      const taskId = Number(taskItem.id);
+
+      this.taskManager.deleteTask(taskId);
+      this.taskList.removeChild(taskItem);
+    });
+
     this.taskList.appendChild(taskItem);
     taskItem.appendChild(deleteButton);
   }
