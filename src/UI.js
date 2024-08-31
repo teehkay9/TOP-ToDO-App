@@ -29,9 +29,11 @@ export class UI {
   renderTask(task) {
     // Task Description
     const taskItem = document.createElement("li");
-    taskItem.setAttribute("id", `${task.id}`);
     taskItem.classList.add("task");
     taskItem.textContent = task.description;
+
+    // use a data attribute to store task ID
+    taskItem.dataset.taskId = task.id;
 
     // Delete button
     const deleteButton = document.createElement("button");
@@ -51,7 +53,7 @@ export class UI {
     deleteButton.addEventListener("click", (e) => {
       const taskItem = e.target.parentElement;
 
-      const taskId = Number(taskItem.id);
+      const taskId = Number(taskItem.dataset.taskId);
 
       this.taskManager.deleteTask(taskId);
       this.taskList.removeChild(taskItem);
