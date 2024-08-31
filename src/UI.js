@@ -41,12 +41,14 @@ export class UI {
     deleteButton.textContent = "X";
 
     // add event listener to the task
-    taskItem.addEventListener("click", () => {
-      task.changeCompleteStatus();
-      taskItem.classList.toggle("completed");
+    taskItem.addEventListener("click", (e) => {
+      if (e.target !== deleteButton) {
+        task.changeCompleteStatus();
+        taskItem.classList.toggle("completed");
 
-      // update display for items left if task has been toggled
-      this.incompleteTaskCountElement.textContent = this.taskManager.getIncompleteTaskCount();
+        // update display for items left if task has been toggled
+        this.incompleteTaskCountElement.textContent = this.taskManager.getIncompleteTaskCount();
+      }
     });
 
     // add event listener for each delete button
