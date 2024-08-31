@@ -6,6 +6,7 @@ export class UI {
     this.taskForm = document.getElementById("taskForm");
     this.taskInput = document.getElementById("taskInput");
     this.taskList = document.getElementById("taskList");
+    this.itemsLeft = document.querySelector("strong");
 
     if (!this.taskForm || !this.taskInput || !this.taskList) {
       console.error("Required DOM elements are missing");
@@ -42,7 +43,8 @@ export class UI {
       task.changeCompleteStatus();
       taskItem.classList.toggle("completed");
 
-      console.log(`${task.isCompleted}`);
+      // update display for items left if task has been toggled
+      this.itemsLeft.textContent = this.taskManager.getNrOfCompletedTasks();
     });
 
     // add event listener for each delete button
@@ -53,9 +55,14 @@ export class UI {
 
       this.taskManager.deleteTask(taskId);
       this.taskList.removeChild(taskItem);
+
+      // update display for items left after task has been deleted
+      this.itemsLeft.textContent = this.taskManager.getNrOfCompletedTasks();
     });
 
     this.taskList.appendChild(taskItem);
     taskItem.appendChild(deleteButton);
+    // update display for items left when new task has been added
+    this.itemsLeft.textContent = this.taskManager.getNrOfCompletedTasks();
   }
 }

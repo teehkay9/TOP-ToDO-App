@@ -29,4 +29,8 @@ export class TaskManager {
   getAllTasks() {
     return this.tasks;
   }
+
+  getNrOfCompletedTasks() {
+    return this.tasks.filter((task) => !task.isCompleted).length;
+  }
 }
