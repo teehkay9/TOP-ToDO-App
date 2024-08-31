@@ -30,7 +30,7 @@ export class TaskManager {
     return this.tasks;
   }
 
-  getNrOfCompletedTasks() {
+  getIncompleteTaskCount() {
     return this.tasks.filter((task) => !task.isCompleted).length;
   }
 }
