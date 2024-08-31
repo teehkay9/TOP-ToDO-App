@@ -21,7 +21,7 @@ export class UI {
     if (taskDescription) {
       const newTask = this.taskManager.addTask(taskDescription);
       this.renderTask(newTask);
-      this.taskInput.value = ""; // Clear input field after submission
+      this.taskInput.value = "";
     }
   }
 
@@ -36,6 +36,14 @@ export class UI {
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
     deleteButton.textContent = "X";
+
+    // add event listener to the task
+    taskItem.addEventListener("click", () => {
+      task.changeCompleteStatus();
+      taskItem.classList.toggle("completed");
+
+      console.log(`${task.isCompleted}`);
+    });
 
     // add event listener for each delete button
     deleteButton.addEventListener("click", (e) => {
