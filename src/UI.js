@@ -6,7 +6,7 @@ export class UI {
     this.taskForm = document.getElementById("taskForm");
     this.taskInput = document.getElementById("taskInput");
     this.taskList = document.getElementById("taskList");
-    this.incompleteTaskCountElement = document.querySelector("strong");
+    this.itemsLeft = document.querySelector("strong");
 
     if (!this.taskForm || !this.taskInput || !this.taskList) {
       console.error("Required DOM elements are missing");
@@ -23,6 +23,7 @@ export class UI {
       const newTask = this.taskManager.addTask(taskDescription);
       this.renderTask(newTask);
       this.taskInput.value = "";
+      this.updateTaskCount();
     }
   }
 
@@ -43,11 +44,10 @@ export class UI {
     // add event listener to the task
     taskItem.addEventListener("click", (e) => {
       if (e.target !== deleteButton) {
-        task.changeCompleteStatus();
+        const taskId = Number(taskItem.dataset.taskId);
+        this.taskManager.toggleTaskCompletion(taskId);
         taskItem.classList.toggle("completed");
-
-        // update display for items left if task has been toggled
-        this.incompleteTaskCountElement.textContent = this.taskManager.getIncompleteTaskCount();
+        this.updateTaskCount();
       }
     });
 
@@ -59,14 +59,16 @@ export class UI {
 
       this.taskManager.deleteTask(taskId);
       this.taskList.removeChild(taskItem);
-
-      // update display for items left after task has been deleted
-      this.incompleteTaskCountElement.textContent = this.taskManager.getIncompleteTaskCount();
+      this.updateTaskCount();
     });
 
     this.taskList.appendChild(taskItem);
     taskItem.appendChild(deleteButton);
     // update display for items left when new task has been added
-    this.incompleteTaskCountElement.textContent = this.taskManager.getIncompleteTaskCount();
+    this.updateTaskCount();
+  }
+
+  updateTaskCount() {
+    this.itemsLeft.textContent = this.taskManager.getIncompleteTaskCount();
   }
 }

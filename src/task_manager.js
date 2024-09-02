@@ -4,12 +4,14 @@ export class TaskManager {
   constructor() {
     this.tasks = []; // stores our Task objects
     this.currentId = 0; // ID generator for each Task object
+    this.incompleteTaskCount = 0;
   }
 
   addTask(description) {
     const newTask = new Task(this.currentId, description);
     this.tasks.push(newTask);
     this.currentId++;
+    this.incompleteTaskCount++;
     return newTask;
   }
 
@@ -22,6 +24,9 @@ export class TaskManager {
     const taskIndex = this.tasks.findIndex((task) => task.id === id);
 
     if (taskIndex !== -1) {
+      if (!this.tasks[taskIndex].isCompleted) {
+        this.incompleteTaskCount--;
+      }
       this.tasks.splice(taskIndex, 1);
     }
   }
@@ -31,6 +36,15 @@ export class TaskManager {
   }
 
   getIncompleteTaskCount() {
-    return this.tasks.filter((task) => !task.isCompleted).length;
+    return this.incompleteTaskCount;
+  }
+
+  toggleTaskCompletion(id) {
+    const task = this.findTaskById(id);
+
+    if (task) {
+      task.changeCompleteStatus();
+      this.incompleteTaskCount += task.isCompleted ? -1 : 1;
+    }
   }
 }
