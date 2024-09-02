@@ -8,12 +8,23 @@ export class UI {
     this.taskList = document.getElementById("taskList");
     this.itemsLeft = document.querySelector("strong");
 
+    this.filterLinks = document.querySelectorAll(".filter-link");
+
     if (!this.taskForm || !this.taskInput || !this.taskList) {
       console.error("Required DOM elements are missing");
       return;
     }
 
     this.taskForm.addEventListener("submit", (e) => this.handleFormSubmit(e));
+
+    this.filterLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const filter = e.target.dataset.filter;
+        this.filterTasks(filter);
+        this.updateTaskCount();
+      });
+    });
   }
 
   handleFormSubmit(e) {
@@ -70,5 +81,24 @@ export class UI {
 
   updateTaskCount() {
     this.itemsLeft.textContent = this.taskManager.getIncompleteTaskCount();
+  }
+
+  filterTasks(filter) {
+    // clear the current display
+    this.taskList.innerHTML = "";
+
+    const allTasks = this.taskManager.getAllTasks();
+
+    let filteredTasks;
+    if (filter === "active") {
+      filteredTasks = allTasks.filter((task) => !task.isCompleted);
+    } else if (filter === "completed") {
+      filteredTasks = allTasks.filter((task) => task.isCompleted);
+    } else {
+      filteredTasks = allTasks;
+    }
+
+    // render the filtered tasks
+    filteredTasks.forEach((task) => this.renderTask(task));
   }
 }
