@@ -129,6 +129,9 @@ li.completed {
 
 .filters a.selected {
   border-color: rgba(175, 47, 47, 0.2);
+  color: #fff;
+  background-color: #007bff; /* Primary color for highlighting */
+  font-weight: bold;
 }
 
 /* Clear completed button */

@@ -22,6 +22,7 @@ export class UI {
         e.preventDefault();
         const filter = e.target.dataset.filter;
         this.filterTasks(filter);
+        this.updateActiveFilter(filter);
         this.updateTaskCount();
       });
     });
@@ -100,5 +101,15 @@ export class UI {
 
     // render the filtered tasks
     filteredTasks.forEach((task) => this.renderTask(task));
+  }
+
+  updateActiveFilter(filter) {
+    // Clear the selected class from all filters
+    this.filterLinks.forEach((link) => {
+      link.classList.remove("selected");
+      if (link.dataset.filter === filter) {
+        link.classList.add("selected");
+      }
+    });
   }
 }
