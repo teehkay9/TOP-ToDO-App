@@ -47,4 +47,13 @@ export class TaskManager {
       this.incompleteTaskCount += task.isCompleted ? -1 : 1;
     }
   }
+
+  loadTasksFromStorage() {
+    const tasksArray = localStorage.getItem("tasks");
+    if (tasksArray) {
+      this.tasks = JSON.parse(tasksArray).map(({ id, description, isCompleted }) => new Task(id, description, isCompleted));
+    } else {
+      this.tasks = [];
+    }
+  }
 }

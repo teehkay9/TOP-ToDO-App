@@ -8,9 +8,6 @@ export class UI {
     this.taskList = document.getElementById("taskList");
     this.itemsLeft = document.querySelector("strong");
 
-    // reference to Array of Task objects for local Storage
-    this.toDos = this.taskManager.tasks;
-
     this.filterLinks = document.querySelectorAll(".filter-link");
 
     if (!this.taskForm || !this.taskInput || !this.taskList) {
@@ -18,11 +15,9 @@ export class UI {
       return;
     }
 
-    // check for local Storage
-    const tasks = localStorage.getItem("taskies");
-    if (tasks) {
-      this.taskManager.tasks = JSON.parse(tasks);
-    }
+    // loadTasksFromStorage
+    this.taskManager.loadTasksFromStorage();
+    this.taskManager.tasks.forEach((task) => this.renderTask(task));
 
     this.taskForm.addEventListener("submit", (e) => this.handleFormSubmit(e));
 
@@ -42,9 +37,7 @@ export class UI {
     const taskDescription = this.taskInput.value.trim();
     if (taskDescription) {
       const newTask = this.taskManager.addTask(taskDescription);
-      // save changes to local storage
-      const toDosJSON = JSON.stringify(this.toDos);
-      localStorage.setItem("tasks", toDosJSON);
+      this.saveTasksToLocalStorage();
       this.renderTask(newTask);
       this.taskInput.value = "";
       this.updateTaskCount();
@@ -70,9 +63,7 @@ export class UI {
       if (e.target !== deleteButton) {
         const taskId = Number(taskItem.dataset.taskId);
         this.taskManager.toggleTaskCompletion(taskId);
-        // save changes to local storage
-        const toDosJSON = JSON.stringify(this.toDos);
-        localStorage.setItem("tasks", toDosJSON);
+        this.saveTasksToLocalStorage();
         taskItem.classList.toggle("completed");
         this.updateTaskCount();
       }
@@ -86,9 +77,7 @@ export class UI {
 
       this.taskManager.deleteTask(taskId);
 
-      // save changes to local storage
-      const toDosJSON = JSON.stringify(this.toDos);
-      localStorage.setItem("tasks", toDosJSON);
+      this.saveTasksToLocalStorage();
 
       this.taskList.removeChild(taskItem);
       this.updateTaskCount();
@@ -98,6 +87,11 @@ export class UI {
     taskItem.appendChild(deleteButton);
     // update display for items left when new task has been added
     this.updateTaskCount();
+  }
+
+  saveTasksToLocalStorage() {
+    const toDosJSON = JSON.stringify(this.taskManager.tasks);
+    localStorage.setItem("tasks", toDosJSON);
   }
 
   updateTaskCount() {
