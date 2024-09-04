@@ -15,6 +15,12 @@ export class UI {
       return;
     }
 
+    // check for local Storage
+    const tasks = localStorage.getItem("taskies");
+    if (tasks) {
+      this.taskManager.tasks = JSON.parse(tasks);
+    }
+
     this.taskForm.addEventListener("submit", (e) => this.handleFormSubmit(e));
 
     this.filterLinks.forEach((link) => {
