@@ -18,6 +18,7 @@ export class UI {
     // loadTasksFromStorage
     this.taskManager.loadTasksFromStorage();
     this.taskManager.tasks.forEach((task) => this.renderTask(task));
+    this.updateTaskCount();
 
     this.taskForm.addEventListener("submit", (e) => this.handleFormSubmit(e));
 

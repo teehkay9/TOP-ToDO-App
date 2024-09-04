@@ -52,8 +52,13 @@ export class TaskManager {
     const tasksArray = localStorage.getItem("tasks");
     if (tasksArray) {
       this.tasks = JSON.parse(tasksArray).map(({ id, description, isCompleted }) => new Task(id, description, isCompleted));
+      this.currentId = this.tasks.length > 0 ? Math.max(...this.tasks.map((task) => task.id)) + 1 : 0; // correctly set the currentId
+
+      // Calculate the incomplete task count
+      this.incompleteTaskCount = this.tasks.filter((task) => !task.isCompleted).length;
     } else {
       this.tasks = [];
+      this.incompleteTaskCount = 0; // reset count if no tasks are found
     }
   }
 }
