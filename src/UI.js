@@ -8,6 +8,9 @@ export class UI {
     this.taskList = document.getElementById("taskList");
     this.itemsLeft = document.querySelector("strong");
 
+    // reference to Array of Task objects for local Storage
+    this.toDos = this.taskManager.tasks;
+
     this.filterLinks = document.querySelectorAll(".filter-link");
 
     if (!this.taskForm || !this.taskInput || !this.taskList) {
@@ -39,6 +42,9 @@ export class UI {
     const taskDescription = this.taskInput.value.trim();
     if (taskDescription) {
       const newTask = this.taskManager.addTask(taskDescription);
+      // save changes to local storage
+      const toDosJSON = JSON.stringify(this.toDos);
+      localStorage.setItem("tasks", toDosJSON);
       this.renderTask(newTask);
       this.taskInput.value = "";
       this.updateTaskCount();
@@ -64,6 +70,9 @@ export class UI {
       if (e.target !== deleteButton) {
         const taskId = Number(taskItem.dataset.taskId);
         this.taskManager.toggleTaskCompletion(taskId);
+        // save changes to local storage
+        const toDosJSON = JSON.stringify(this.toDos);
+        localStorage.setItem("tasks", toDosJSON);
         taskItem.classList.toggle("completed");
         this.updateTaskCount();
       }
@@ -76,6 +85,11 @@ export class UI {
       const taskId = Number(taskItem.dataset.taskId);
 
       this.taskManager.deleteTask(taskId);
+
+      // save changes to local storage
+      const toDosJSON = JSON.stringify(this.toDos);
+      localStorage.setItem("tasks", toDosJSON);
+
       this.taskList.removeChild(taskItem);
       this.updateTaskCount();
     });
